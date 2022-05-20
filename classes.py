@@ -5,7 +5,7 @@ class Venue:
     def __init__(self):
         self.name = "default name"
         self.tables = set()
-    def add_table(table)
+    def add_table(table):
         self.tables.add(table)
     def set_name(name):
         self.name = name
@@ -33,3 +33,4 @@ class Person(Table):
     def __init__(self):
         print("test")
         print("github test")
+        print("testing branch")
