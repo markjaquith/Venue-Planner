@@ -15,7 +15,7 @@ class Table(Venue):
     def __init__(self):
         self.number = 0
         self.num_persons = 0        #Number of persons
-        self.obj_persons = set()    #Person objects
+        self.persons = set()    #Person objects
     def set_number(num):
         self.number = num
     def get_numbers(num):
@@ -25,17 +25,12 @@ class Table(Venue):
     def get_num_persons():          #gets number of persons
         return self.persons
     def add_obj_persons(person):    #adds person object
-        person.add(person)
+        self.persons.add(person)
         
 
 class Person(Table):
     def __init__(self):
         print("test")
-<<<<<<< HEAD
-
-person = Person()
-=======
         print("github test")
         print("testing branch")
         print("testing again")
->>>>>>> testing_git
