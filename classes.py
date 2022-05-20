@@ -1,11 +1,10 @@
-from this import d
 import tkinter as tk
 
 class Venue:
     def __init__(self):
         self.name = "default name"
         self.tables = set()
-    def add_table(table)
+    def add_table(table):
         self.tables.add(table)
     def set_name(name):
         self.name = name
@@ -32,3 +31,5 @@ class Table(Venue):
 class Person(Table):
     def __init__(self):
         print("test")
+
+person = Person()
