@@ -1,38 +1,45 @@
+
+from logging import root
+import tkinter as tk
+import venue
+
 class Gui:
     def __init__(self):
-        self.windows = list()
-        self.window_names = ["greeting", "query1"]
-    def add_window(self, window):
-        self.windows.add(window)
+        self.introduce()
+    def newWindow(self):
+        self.window = tk.Tk()
+        self.window.title("Venue Planner")
+        self.window.geometry("1920x1080")
 
-class Window(Gui):
-    def __init__(self, name):
-        self.name = name
-        self.widgets = list()
-    def start(self):
-        window = tk.Tk()
-    def create(self):
-        pass
-    def pack(self):
-        for widget in self.widgets:
-            widget.pack()
-    def greeting(self):
-        window = tk.Tk()
-        greeting = tk.Label(text = "Welcome to Venue Planner!")
-        instructions = tk.Label(pady = 100,
-        text = "This application automatically assigns people to seats based on the information you provide.\n Click the continue button to get started.")
-        button = tk.Button(text = "Continue", command = "open_new_window")
+    # Displays opening message
+    def introduce(self):
+        self.newWindow()
+        # self.window = tk.Tk()
+        # self.window.title("Venue Planner")
+        # self.window.geometry("1920x1080")
+        frame = tk.Frame()
+        tk.Label(frame, 
+            padx = 50,
+            text = "Welcome to Venue Planner!"
+        ).pack()
+        tk.Label(
+            pady = 50,
+            text = "This application automatically assigns seats based on information provided."
+        ).pack()
+        tk.Label(
+            text = "press the button to begin:"
+        ).pack()
+        tk.Button(
+            text = "begin",
+            command = self.query1
+            ).pack()
+        tk.mainloop()
+    # querys for name of venue
+    def query1(self):
+        self.window.withdraw()
+        self.newWindow()
 
-
-
-        greeting.pack()
-        instructions.pack()
-        button.pack()
-        window.mainloop()
-    def exit_window(self, current_window):
-        window = top_level(current_window)
-
-class Widget(Window):
-    def __init__(self, name, type):
-        self.name = name
-        self.type = type
+if __name__ == "__main__":
+    gui = Gui()
+    global venue
+    venue = venue()

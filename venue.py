@@ -18,20 +18,20 @@ class Group():
     def add_person(person):
         self.persons.add(person)
     
-class Table(Venue):
+class Table():
     def __init__(self, name):
         self.name = name
-        self.persons = set()    #Person objects
+        self.persons = set()
     def set_name(self, name):
         self.name = name
     def get_name(self):
         return self.name
-    def get_num_persons(self):          #gets number of persons
+    def get_num_persons(self):
         return len(self.persons)
-    def add_person(self, person):    #adds person object to set
+    def add_person(self, person):
         self.persons.add(person)
 
-class Person(Table):
+class Person():
     def __init__(self, name, age):
         self.name = name
         self.age = age              # to do: assign persons of similar age group to same tables
