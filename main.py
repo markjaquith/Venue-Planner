@@ -9,7 +9,7 @@ if __name__ == "__main__":
     for window in gui.window_names:
         gui.add_window(window)
     for window in gui.windows:
-        
+        pass
     for window in gui.windows:
         window.start()
         window.create()

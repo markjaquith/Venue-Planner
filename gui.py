@@ -12,7 +12,7 @@ class Window(Gui):
     def start(self):
         window = tk.Tk()
     def create(self):
-        
+        pass
     def pack(self):
         for widget in self.widgets:
             widget.pack()
