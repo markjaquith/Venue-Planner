@@ -13,14 +13,7 @@ class Gui:
     def linkReturn(self, next_func):
         self.window.bind("<Return>", next_func)
     # closes current window and opens the next window. also executes ^linkReturn()^.
-    def newWindow(self, func):
-        self.window.destroy()
-        self.window = tk.Tk()
-        self.FONT = font.Font(size = 20)
-        self.window.configure(bg = "blue")
-        self.window.title("Venue Planner")
-        self.window.geometry("800x600")
-        self.linkReturn(func)
+
 
     ## WIDGET METHODS ##
     
