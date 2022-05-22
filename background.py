@@ -7,7 +7,6 @@ class Background:
 class Venue():
     def __init__(self, name):
         self.name = name
-        self.venues = list()
         self.tables = list()
         self.groups = list()
     def add_table(table):
