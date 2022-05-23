@@ -24,23 +24,20 @@ class Gui:
         self.linkReturn(func)
 
     ## WIDGET METHODS ##
-    
-    def button(self, text, command, padx = 25, pady = 25, loc = "top", bg = "blue", fg = "black"):
-        btn = tk.Button(text = text, command = command, padx = padx, pady = pady, bg = bg, fg = fg)
+
+    def button(self, **kwargs):
+        btn = tk.Button(kwargs, padx = 25, pady = 25, bg = "blue", fg = "white")
         # btn["font"] = self.window.FONT
         self.widgets.append(btn)
-        btn.pack()
-    
-    def label(self, text, padx = 25, pady = 25, loc = "top", bg = "blue", fg = "white", ):
-        label = tk.Label(text = text, padx = padx, pady = pady, bg = bg, fg = fg)
-        self.widgets.append(label)
-        label.pack()
 
-    def entry(self, loc = "top", bg = "black", fg = "white"):
-        entry = tk.Entry(bg = bg, fg = fg)
+    def label(self, **kwargs):
+        label = tk.Label(kwargs)
+        # , padx = 0, pady = 25, bg = "blue", fg = "white")
+        self.widgets.append(label)
+
+    def entry(self, **kwargs):
+        entry = tk.Entry(kwargs)
         self.widgets.append(entry)
-        entry.pack()
-        return entry
     
     # Focuses cursor on passed entry widget argument
     def focus(self, entry):
@@ -49,20 +46,18 @@ class Gui:
     def columns(self, num):
         for x in range(num):
             self.window.configure(x)
-
-    ## WINDOW METHODS ##
     
     # Displays opening message and querys for venue name.
     def introduce(self):
         self.newForm(self.query1)
-        self.label("Welcome to Venue Planner!", 0, 50)
-        intro = "This application automatically assigns your guests to seats based on information provided."
-        self.label(intro, 0, 50)
-        self.label("To start enter the name of your venue:", 0, 25)
-        entry = self.entry()
+        text = "This application automatically assigns your guests to seats based on information provided."
+        self.label(text = text).pack()
+        text = "To start enter the name of your venue:"
+        self.label(text = text),pack()
+        entry = self.entry().pack(side = RIGHT)
         self.focus(entry)
-        self.button("Submit", self.query1)
-        self.window.mainloop()
+        self.button("Submit", self.query1).pack()
+        tk.mainloop()
 
     # querys for max seats per table
     def query1(self, event = None):
@@ -70,7 +65,7 @@ class Gui:
         # self.window.grid(0)
         self.label("how many seats are there per table?")
         self.label("Please enter an integer:")
-        self.entry()
+        tk.Entry().pack()
         self.button("Submit", self.query2)
         
     # queries for 
