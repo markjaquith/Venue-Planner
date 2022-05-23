@@ -70,7 +70,7 @@ class Gui:
         # self.window.grid(0)
         self.label("how many seats are there per table?")
         self.label("Please enter an integer:")
-        tk.Entry().pack()
+        self.entry()
         self.button("Submit", self.query2)
         
     # queries for 
