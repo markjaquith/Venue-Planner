@@ -61,7 +61,6 @@ class Gui:
     def introduce(self):
         self.newForm()
         self.linkReturn(self.query1)
-        self.create_grid(3, 3)
              
         text = "Welcome to Venue Planer!"
         self.label(text = text).pack(pady = (100, 50))
@@ -77,8 +76,10 @@ class Gui:
     # querys for max seats per table
     def query1(self, event = None):
         self.newForm()
-        text = "enter the number of seats per table"
+        text = "enter the number of seats per table:"
         self.label(text = text).pack(pady = 100)
+
+        # self.entry().pack(pady = ())
 
     # queries for 
     def query2(self, event = None):
