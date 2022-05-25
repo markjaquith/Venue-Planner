@@ -8,7 +8,6 @@ class Gui:
     def __init__(self):
         self.window = tk.Tk()
         self.widgets = list()
-        self.frames = list()
         self.introduce()
 
     # closes current window and opens the next window.
@@ -16,17 +15,12 @@ class Gui:
         for widget in self.widgets:
             widget.destroy()
         self.widgets.clear()
-        for frame in self.frames:
-            frame.grid_forget()
         self.window.configure(bg = "blue")
         self.window.title("Venue Planner")
-        self.window.geometry("800x600")
-
-    # Assigns key "Return" to run subsequent window method.
-    def linkReturn(self, next_func):
-        self.window.bind("<Return>", next_func)        
+        self.window.geometry("800x600")     
 
     ## WIDGET METHODS ##
+    ## each method creates a widget.
 
     def label(self, *args, **kwargs):
         label = tk.Label(*args, **kwargs, bg = "blue", fg = "white")
@@ -38,26 +32,24 @@ class Gui:
         self.widgets.append(entry)
         return entry
 
-    # Focuses cursor on passed entry widget
-    def focus_cursor(self, entry):
-        entry.focus_set()
-
     def button(self, *args, **kwargs):
         btn = tk.Button(*args, **kwargs, fg = "black", padx = 10, pady = 10)
         # btn["font"] = self.window.FONT
         self.widgets.append(btn)
         return btn
 
+    ##Micellanous Methods##
 
+    # Assigns key "Return" to run subsequent window method.
+    def linkReturn(self, next_func):
+        self.window.bind("<Return>", next_func)  
 
-    #creates a grid for frames to be placed.
-    def create_grid(self, x, y):
-        for x in range(x):
-            for y in range(y):
-                self.window.columnconfigure(x, weight = 1)
-                self.window.rowconfigure(y, weight = 1)
-
-    # Displays opening message and querys for venue name.
+    # Focuses cursor on passed entry widget
+    def focus_cursor(self, entry):
+        entry.focus_set()
+    
+     ## Window Methods ##
+        
     def introduce(self):
         self.newForm()
         self.linkReturn(self.query1)
@@ -78,8 +70,6 @@ class Gui:
         self.newForm()
         text = "enter the number of seats per table:"
         self.label(text = text).pack(pady = 100)
-
-        # self.entry().pack(pady = ())
 
     # queries for 
     def query2(self, event = None):
