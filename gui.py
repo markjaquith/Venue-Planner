@@ -11,10 +11,9 @@ class Gui:
         self.introduce()
 
     # closes current window and opens the next window.
-    def newForm(self):    
-        for widget in self.widgets:
-            widget.destroy()
-        self.widgets.clear()
+    def newWindow(self):
+        self.window.destroy()    
+        self.window = tk.Tk()
         self.window.configure(bg = "blue")
         self.window.title("Venue Planner")
         self.window.geometry("800x600")     
@@ -24,21 +23,18 @@ class Gui:
 
     def label(self, *args, **kwargs):
         label = tk.Label(*args, **kwargs, bg = "blue", fg = "white")
-        self.widgets.append(label)
         return label
 
     def entry(self, *args, **kwargs):
         entry = tk.Entry(*args, **kwargs)
-        self.widgets.append(entry)
         return entry
 
     def button(self, *args, **kwargs):
         btn = tk.Button(*args, **kwargs, fg = "black", padx = 10, pady = 10)
         # btn["font"] = self.window.FONT
-        self.widgets.append(btn)
         return btn
 
-    ##Micellanous Methods##
+    ## Micellanous Methods ##
 
     # Assigns key "Return" to run subsequent window method.
     def linkReturn(self, next_func):
@@ -51,29 +47,39 @@ class Gui:
      ## Window Methods ##
         
     def introduce(self):
-        self.newForm()
+        self.newWindow()
         self.linkReturn(self.query1)
              
         text = "Welcome to Venue Planer!"
-        self.label(text = text).pack(pady = (100, 50))
+        self.label(self.window, text = text).pack(pady = (100, 50))
         
         text = "This application automatically assigns guests to seats based on information provided."
-        self.label(text = text).pack(pady = 50)
+        self.label(self.window, text = text).pack(pady = 50)
         
         text = "Press enter to continue"
-        self.label(text = text).pack(pady = 50)
+        self.label(self.window, text = text).pack(pady = 50)
         
         tk.mainloop()
 
     # querys for max seats per table
     def query1(self, event = None):
-        self.newForm()
+        self.newWindow()
+        # self.newForm()
+        self.linkReturn(self.query2)
+
         text = "enter the number of seats per table:"
-        self.label(text = text).pack(pady = 100)
+        self.label(text = text).pack(pady = (100, 0))
+
+        self.entry().pack(pady = 25)
+        
+        text = "Press enter to continue"
+        self.label(self.window, text = text).pack(pady = 50)
+
+        tk.mainloop()
 
     # queries for 
     def query2(self, event = None):
-        self.newForm()
+        self.newWindow()
     
     # querys for
     def query3(self):
