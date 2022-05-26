@@ -2,8 +2,6 @@
 import tkinter as tk
 # import tkinter.font as font'
 
-import background
-
 class Gui:
     def __init__(self):
         self.window = tk.Tk()
@@ -25,10 +23,6 @@ class Gui:
         label = tk.Label(*args, **kwargs, bg = "blue", fg = "white")
         return label
 
-    def entry(self, *args, **kwargs):
-        entry = tk.Entry(*args, **kwargs)
-        return entry
-
     def button(self, *args, **kwargs):
         btn = tk.Button(*args, **kwargs, fg = "black", padx = 10, pady = 10)
         return btn
@@ -43,10 +37,10 @@ class Gui:
     def focusCursor(self, entry):
         entry.focus_set()
     
-    #checks to make sure user entered information into a specific Entry()
-    def isEntered(self, entry):
-        if entry.get(): return True
-        return False
+    # #checks to make sure user entered information into a specific Entry()
+    # def isEntered(self, entry):
+    #     if entry.get(): return True
+    #     return False
 
 
      ## Window Methods ##
@@ -64,12 +58,13 @@ class Gui:
         text = "To begin enter the name of your venue:"
         self.label(text = text).pack(pady = 10)
 
-        entry = self.entry()
-        entry.pack(pady = 10)
-        self.focusCursor(entry)
+        self.entry = tk.Entry()
+        self.entry.pack(pady = 10)
+        self.focusCursor(self.entry)
 
-        bg.addVenue(Venue())
-        # for venue in bg.venues: print("successful!")
+        bg.addVenue(Venue(self.entry.get()))
+        for venue in bg.venues:
+            print(venue.name)
 
 
         text = "Press enter to continue"
@@ -79,16 +74,18 @@ class Gui:
 
     # querys for max seats per table
     def query1(self, event = None):
+
+        venue_name = self.entry.get()
+        bg.venues.append(Venue(self.entry.get()))
         self.newWindow()
         self.linkReturn(self.query2)
 
-        text = "For starters, please enter the name of your venue:"
+        text = "Enter the max number of seats per table:"
         self.label(text = text).pack(pady = 50)
 
-        entry = self.entry()
-        entry.pack(pady = 25)
-        self.focusCursor(entry)
-        bg.addVenue(entry)
+        self.entry = tk.Entry()
+        self.entry.pack(pady = 25)
+        self.focusCursor(self.entry)
 
         text = "Press enter to continue"
         self.label(self.window, text = text).pack(pady = 50)
@@ -99,7 +96,7 @@ class Gui:
     def query2(self, event = None):
         self.newWindow()
 
-        text = "enter the max number of seats per table:"
+        text = ""
         self.label(text = text).pack(pady = (100, 0))
 
         entry = self.entry()
@@ -119,14 +116,14 @@ class Background:
         self.venues.append(venue)
 
 class Venue:
-    def __init__(self):
-        self.name = None
+    def __init__(self, name):
+        self.name = name
         self.maxSeats = 0
         self.tables = list()
         self.groups = list()
-    def addTable(table):
+    def addTable(self, table):
         self.tables.append(table)
-    def addGroup(group):
+    def addGroup(self, group):
         self.groups.append(group)
 
 class Group:
@@ -145,11 +142,11 @@ class Person:
         self.age = age              # to do: assign persons of similar age group to same tables
                                     # to do: make list of persons not allowed at the same table
 
-def main():
+
+    
+
+if __name__ == "__main__":
     global bg
     bg = Background()
     global gui
     gui = Gui()
-
-if __name__ == "__main__":
-    main()
