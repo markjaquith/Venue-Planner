@@ -1,4 +1,3 @@
-
 import tkinter as tk
 # import tkinter.font as font'
 
@@ -29,9 +28,7 @@ class Gui:
 
     def button(self, *args, **kwargs):
         btn = tk.Button(*args, **kwargs, fg = "black", padx = 10, pady = 10)
-        return btn
-    
-
+        return btn        
 
     ## Micellanous Methods ##
 
@@ -42,70 +39,64 @@ class Gui:
     # Focuses cursor on passed entry widget
     def focusCursor(self, entry):
         entry.focus_set()
-
     
-    # #checks to make sure user entered information into a specific Entry()
-    # def isEntered(self, entry):
-    #     if entry.get(): return True
-    #     return False
-
-
      ## Window Methods ##
         
     def introduce(self):
         self.newWindow()
-        self.linkReturn(self.query1)
-             
+        
+        
         text = "Welcome to Venue Planer!"
         self.label(self.window, text = text).pack(pady = (100, 50))
         
         text = "This application automatically assigns guests to seats based on information provided."
         self.label(self.window, text = text).pack(pady = 50)
-        
+
         text = "To begin enter the name of your venue:"
         self.label(text = text).pack(pady = 10)
 
         self.entry_widget = self.entry()
         self.entry_widget.pack()
         self.focusCursor(self.entry_widget)
-        bg.addVenue(Venue(self.entry_widget.get()))
-        
+        self.linkReturn(self.query1)
+
+
 
 
         text = "Press enter to continue"
         self.label(self.window, text = text).pack(pady = 50)
-        
         tk.mainloop()
-
+        bg.addVenue(Venue(self.entry_widget.get()))
     # querys for max seats per table
     def query1(self, event = None):
-
-        bg.venues.append(Venue(self.entry_widget.get()))
+        # bg.addVenue(Venue(self.entry_widget.get()))
+        print(self.entry_widget.get())
         self.newWindow()
-        self.linkReturn(self.query2)
 
-        text = "Enter the max number of seats per table:"
+        text = "Enter the max number of seats per table as an integer:"
         self.label(text = text).pack(pady = 50)
 
-        self.input = tk.Entry()
-        self.input.pack(pady = 25)
-        self.focusCursor(self.input)
+        self.entry_widget = tk.Entry()
+        self.entry_widget.pack(pady = 25)
+        self.focusCursor(self.entry_widget)
 
-        text = "Press enter to continue"
-        self.label(self.window, text = text).pack(pady = 50)
-
+        self.button(text = "back", command = self.introduce).pack(side = "left")
+        
+        self.linkReturn(self.query2)
         tk.mainloop()
 
+    # Queries for number of tables
     def query2(self, event = None):
+        bg.addVenue(Venue(self.entry_widget.get()))
+        print(self.entry_widget.get())
         self.newWindow()
 
-        text = ""
+        text = "Enter max number of tables:"
         self.label(text = text).pack(pady = (100, 0))
 
-        input = self.input()
-        input.pack(pady = 25)
-        input.focus_set()
-
+        self.entry_widget = self.entry()
+        self.entry_widget.pack(pady = 25)
+        self.entry_widget.focus_set()
         tk.mainloop()
 
     # querys for
