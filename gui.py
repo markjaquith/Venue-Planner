@@ -10,7 +10,7 @@ class Gui:
 
     # closes current window and opens the next window.
     def newWindow(self):
-        self.window.destroy()    
+        self.window.destroy()
         self.window = tk.Tk()
         self.window.configure(bg = "blue")
         self.window.title("Venue Planner")
@@ -23,9 +23,15 @@ class Gui:
         label = tk.Label(*args, **kwargs, bg = "blue", fg = "white")
         return label
 
+    def entry(self):
+        entry = tk.Entry()
+        return entry
+
     def button(self, *args, **kwargs):
         btn = tk.Button(*args, **kwargs, fg = "black", padx = 10, pady = 10)
         return btn
+    
+
 
     ## Micellanous Methods ##
 
@@ -36,6 +42,7 @@ class Gui:
     # Focuses cursor on passed entry widget
     def focusCursor(self, entry):
         entry.focus_set()
+
     
     # #checks to make sure user entered information into a specific Entry()
     # def isEntered(self, entry):
@@ -58,13 +65,11 @@ class Gui:
         text = "To begin enter the name of your venue:"
         self.label(text = text).pack(pady = 10)
 
-        self.entry = tk.Entry()
-        self.entry.pack(pady = 10)
-        self.focusCursor(self.entry)
-
-        bg.addVenue(Venue(self.entry.get()))
-        for venue in bg.venues:
-            print(venue.name)
+        self.entry_widget = self.entry()
+        self.entry_widget.pack()
+        self.focusCursor(self.entry_widget)
+        bg.addVenue(Venue(self.entry_widget.get()))
+        
 
 
         text = "Press enter to continue"
@@ -75,33 +80,31 @@ class Gui:
     # querys for max seats per table
     def query1(self, event = None):
 
-        venue_name = self.entry.get()
-        bg.venues.append(Venue(self.entry.get()))
+        bg.venues.append(Venue(self.entry_widget.get()))
         self.newWindow()
         self.linkReturn(self.query2)
 
         text = "Enter the max number of seats per table:"
         self.label(text = text).pack(pady = 50)
 
-        self.entry = tk.Entry()
-        self.entry.pack(pady = 25)
-        self.focusCursor(self.entry)
+        self.input = tk.Entry()
+        self.input.pack(pady = 25)
+        self.focusCursor(self.input)
 
         text = "Press enter to continue"
         self.label(self.window, text = text).pack(pady = 50)
 
         tk.mainloop()
 
-    # queries for max people per table
     def query2(self, event = None):
         self.newWindow()
 
         text = ""
         self.label(text = text).pack(pady = (100, 0))
 
-        entry = self.entry()
-        entry.pack(pady = 25)
-        entry.focus_set()
+        input = self.input()
+        input.pack(pady = 25)
+        input.focus_set()
 
         tk.mainloop()
 
