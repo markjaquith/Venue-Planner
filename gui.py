@@ -1,8 +1,10 @@
+from distutils.log import info
 import tkinter as tk
 # import tkinter.font as font'
 
 class Gui:
     def __init__(self):
+        self.entries = list()
         self.venue = None
         self.entry_widget = None
         self.window = tk.Tk()
@@ -71,7 +73,8 @@ class Gui:
     
     # querys for max seats per table
     def query1(self, event = None):
-        bg.addVenue(Venue(self.entry_widget.get()))
+        self.venue = Venue(self.entry_widget.get())
+        info.addVenue(self.venue)
         self.newWindow()
 
         text = "Enter the max number of seats per table as an integer:"
@@ -104,55 +107,64 @@ class Gui:
     def query3(self, event = None):
         self.newWindow()
 
-        text = "Enter in the names of people who must be together. (one group per page)"
+        text = "Enter in the names of people who must be together, such as a Mom and her kids (one group per page)"
         self.label(text = text).pack(pady = 25)
-        
-        self.entry(True)
-        for x in range(self.max_seats): #to do: store maxSeats
-            self.entry(False)
 
-        self.button(text = "back", command = self.query1).pack(side = "left")        
-        self.linkReturn(self.query4)
+        self.entries.append(self.entry(True))
+        for x in range(self.max_seats - 1):
+            self.entries.append(self.entry(False))
+
+        text = "Only click continue once you've entered all of the groups"
+        self.label(text = text).pack(pady = 25)
+
+        self.button(text = "back", command = self.query2).pack(side = "left")        
+        self.linkReturn(self.query3)
+        self.button(text = "Continue", command = self.query4).pack(side = "right")
+        
+
+
         tk.mainloop()
+        
+        self.group = Group()
+        self.venue.addGroup(self.group)
+        for person in self.entries:
+            self.group.addPerson(entry.get())
+            print(entry)
 
     def query4(self):
         self.newWindow()
         self.label(text = "test")
 
-class Background:
+class Info:
     def __init__(self):
         self.venues = list()
+        self.groups = list()
+        self.tables = list()
+        self.people = list()
     def addVenue(self, venue):
         self.venues.append(venue)
 
 class Venue:
     def __init__(self, name):
         self.name = name
-        self.max_seats = 0
-        self.tables = list()
-        self.groups = list()
 
 class Group:
-    def __init__(self):
-        self.persons = list()
-    def addPerson(person):
-        self.persons.add(person)
-    
-class Table:
-    def __init__(self, name):
-        self.persons = list()
+    def __init__(self, num):
+        self.num = num
 
 class Person:
     def __init__(self, name, age):
         self.name = name
-        self.age = age              # to do: assign persons of similar age group to same tables
-                                    # to do: make list of persons not allowed at the same table
+        self.age = age
+
+        # to do: assign persons of similar age group to same tables
+        # to do: make list of persons not allowed at the same table
 
 
     
 
 if __name__ == "__main__":
-    global bg
-    bg = Background()
+    global info
+    info = Info()
     global gui
     gui = Gui()
