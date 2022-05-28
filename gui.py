@@ -25,7 +25,7 @@ class Gui:
         label = tk.Label(*args, **kwargs, bg = "blue", fg = "white")
         return label
 
-    def entry(self, isFirst):
+    def entry(self, isFirst, *args, **kwargs):
         self.entry_widget = tk.Entry()
         self.entry_widget.pack()
         if isFirst:
@@ -113,6 +113,10 @@ class Gui:
         self.entries.append(self.entry(True))
         for x in range(self.max_seats - 1):
             self.entries.append(self.entry(False))
+        print(self.entries)
+
+        # for entry in self.entries:
+        #     print(entry.get())
 
         text = "Only click continue once you've entered all of the groups"
         self.label(text = text).pack(pady = 25)
@@ -120,16 +124,18 @@ class Gui:
         self.button(text = "back", command = self.query2).pack(side = "left")        
         self.linkReturn(self.query3)
         self.button(text = "Continue", command = self.query4).pack(side = "right")
-        
 
+        
+        for entry in self.entries:
+            info.people.append(Person(entry.get()))
+        for person in info.people:
+            print(person.name)
+
+        self.entries.clear()
 
         tk.mainloop()
         
-        self.group = Group()
-        self.venue.addGroup(self.group)
-        for person in self.entries:
-            self.group.addPerson(entry.get())
-            print(entry)
+#len = length of entries filled out.
 
     def query4(self):
         self.newWindow()
@@ -148,14 +154,15 @@ class Venue:
     def __init__(self, name):
         self.name = name
 
-class Group:
-    def __init__(self, num):
-        self.num = num
+class Group():
+    def __init__(self):
+        pass
 
 class Person:
-    def __init__(self, name, age):
+    def __init__(self, name):
         self.name = name
-        self.age = age
+        self.group = Group()
+        self.age = None
 
         # to do: assign persons of similar age group to same tables
         # to do: make list of persons not allowed at the same table
